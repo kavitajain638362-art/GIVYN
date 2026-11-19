@@ -4,13 +4,14 @@ from io import BytesIO
 from pathlib import Path
 import os
 
-from flask import Flask, Request, jsonify, request
+from flask import Flask, Request, current_app, jsonify, request
 from werkzeug.exceptions import BadRequest, RequestEntityTooLarge
 
 from .face import FaceLandmarker, FaceLandmarkerUnavailable
 from .images import MAX_IMAGE_BYTES, ImageError, decode_photo
 from .validation import validate_photo
 from .storage import Store
+from .postgres import PostgresStore, WorkspaceStorageUnavailable
 from .workspace import create_workspace
 from .draping import GarmentSegmenter
 
@@ -33,20 +34,29 @@ def read_photo():
     images = request.files.getlist("image")
     if len(images) != 1 or len(request.files) != 1 or not images[0].filename:
         raise ImageError("one_image_required", "Choose one JPG, JPEG, or PNG photo.", 400)
-    return decode_photo(images[0].stream, images[0].filename)
+    return decode_photo(images[0].stream, images[0].filename, current_app.config["MAX_PHOTO_BYTES"])
 
 
 def create_app(config=None) -> Flask:
     app = Flask(__name__)
     app.request_class = InMemoryUploadRequest
-    app.config.update(MAX_CONTENT_LENGTH=MAX_IMAGE_BYTES + 64 * 1024, MAX_FORM_PARTS=6,
-                      DATABASE=os.getenv("GIVYN_DATABASE") or Path(app.instance_path) / "givyn.sqlite3")
+    hosted = os.getenv("VERCEL_ENV") in {"preview", "production"}
+    photo_limit = 4 * 1024 * 1024 if hosted else MAX_IMAGE_BYTES
+    app.config.update(MAX_CONTENT_LENGTH=photo_limit + 64 * 1024, MAX_PHOTO_BYTES=photo_limit, MAX_FORM_PARTS=6,
+                      DATABASE=os.getenv("GIVYN_DATABASE") or Path(app.instance_path) / "givyn.sqlite3",
+                      DATABASE_URL=os.getenv("GIVYN_DATABASE_URL") or (os.getenv("DATABASE_URL") if hosted else None),
+                      SECURE_PROFILE_COOKIE=hosted)
     app.config.update(config or {})
     model_path = os.getenv("GIVYN_FACE_MODEL") or Path(__file__).parent / "models" / "face_landmarker.task"
     landmarker = FaceLandmarker(Path(model_path))
     garment_model = os.getenv("GIVYN_GARMENT_MODEL") or Path(__file__).parent / "models" / "selfie_multiclass_256x256.tflite"
     segmenter = GarmentSegmenter(Path(garment_model))
-    app.register_blueprint(create_workspace(Store(app.config["DATABASE"]), landmarker, segmenter, read_photo))
+    database_url = app.config["DATABASE_URL"]
+    if database_url:
+        store = PostgresStore(database_url)
+    else:
+        store = None if hosted else Store(app.config["DATABASE"])
+    app.register_blueprint(create_workspace(store, landmarker, segmenter, read_photo))
 
     @app.after_request
     def prevent_caching(response):
@@ -55,7 +65,11 @@ def create_app(config=None) -> Flask:
 
     @app.errorhandler(RequestEntityTooLarge)
     def upload_too_large(_error_detail):
-        return _error("upload_limit", "Upload one photo that is 10 MB or smaller.", 413)
+        return _error("upload_limit", f"Upload one photo that is {photo_limit // (1024 * 1024)} MiB or smaller.", 413)
+
+    @app.errorhandler(WorkspaceStorageUnavailable)
+    def storage_unavailable(_error_detail):
+        return _error("storage_unavailable", "Analysis history is unavailable. Try again shortly.", 503)
 
     @app.errorhandler(BadRequest)
     def invalid_request(_error_detail):
@@ -65,6 +79,11 @@ def create_app(config=None) -> Flask:
     def health():
         if not landmarker.model_path.is_file():
             return _error("model_missing", "Install the GIVYN Face Landmarker model.", 503)
+        if store is None:
+            return _error("storage_unconfigured", "Configure durable workspace storage for this deployment.", 503)
+        if isinstance(store, PostgresStore):
+            with store.connection() as db:
+                db.execute("SELECT 1", ())
         return jsonify(status="ok")
 
     @app.post("/api/images/validate")

@@ -30,11 +30,16 @@ def _user():
 def create_workspace(store, landmarker, segmenter, read_photo):
     api = Blueprint("workspace", __name__, url_prefix="/api")
 
+    @api.before_request
+    def require_storage():
+        if store is None and request.endpoint != "workspace.color_options":
+            return _error("storage_unconfigured", "Analysis history has not been configured for this deployment.", 503)
+
     @api.after_request
     def private_profile_cookie(response):
         if "givyn_token" in g:
             response.set_cookie(COOKIE, g.givyn_token, max_age=365 * 24 * 3600,
-                                httponly=True, samesite="Strict", secure=request.is_secure)
+                                httponly=True, samesite="Strict", secure=request.is_secure or current_app.config["SECURE_PROFILE_COOKIE"])
         return response
 
     @api.post("/analyses")
@@ -97,7 +102,8 @@ def create_workspace(store, landmarker, segmenter, read_photo):
         store.delete_profile(_user())
         g.pop("givyn_token", None)
         response = current_app.response_class(status=204)
-        response.delete_cookie(COOKIE, httponly=True, samesite="Strict", secure=request.is_secure)
+        response.delete_cookie(COOKIE, httponly=True, samesite="Strict",
+                               secure=request.is_secure or current_app.config["SECURE_PROFILE_COOKIE"])
         return response
 
     @api.post("/favorites")

@@ -1,11 +1,12 @@
 export const photoAccept = '.jpg,.jpeg,.png,image/jpeg,image/png'
+export const photoMaxMiB = import.meta.env.MODE === 'vercel' ? 4 : 10
 
 export function photoSelectionError(files) {
   if (files.length !== 1) return 'Choose one photo at a time.'
   const [file] = files
   if (!/\.(jpe?g|png)$/i.test(file.name)) return 'Choose a JPG, JPEG, or PNG photo.'
   if (file.size === 0) return 'This file is empty. Choose another photo.'
-  if (file.size > 10 * 1024 * 1024) return 'Choose a photo that is 10 MB or smaller.'
+  if (file.size > photoMaxMiB * 1024 * 1024) return `Choose a photo that is ${photoMaxMiB} MiB or smaller.`
   return ''
 }
 
@@ -21,5 +22,6 @@ export async function validatePhoto(photo, signal, options) {
     if (response.status === 422 && result.status === 'retake') return result
     if (result.error?.message) return { status: 'error', message: result.error.message }
   }
+  if (response.status === 413) return { status: 'error', message: 'This upload is too large. Choose a smaller photo.' }
   return { status: 'error', message: 'The photo checker is unavailable. Try again in a moment.' }
 }

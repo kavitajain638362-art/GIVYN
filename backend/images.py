@@ -19,14 +19,14 @@ class ImageError(ValueError):
         self.status = status
 
 
-def decode_photo(stream, filename: str) -> np.ndarray:
+def decode_photo(stream, filename: str, max_bytes: int = MAX_IMAGE_BYTES) -> np.ndarray:
     expected_format = SUPPORTED_FORMATS.get(Path(filename).suffix.lower())
     if expected_format is None:
         raise ImageError("unsupported_type", "Choose a JPG, JPEG, or PNG photo.", 415)
 
-    data = stream.read(MAX_IMAGE_BYTES + 1)
-    if len(data) > MAX_IMAGE_BYTES:
-        raise ImageError("file_too_large", "Choose a photo that is 10 MB or smaller.", 413)
+    data = stream.read(max_bytes + 1)
+    if len(data) > max_bytes:
+        raise ImageError("file_too_large", f"Choose a photo that is {max_bytes // (1024 * 1024)} MiB or smaller.", 413)
     try:
         with Image.open(BytesIO(data), formats=["JPEG", "PNG"]) as image:
             if image.format != expected_format:

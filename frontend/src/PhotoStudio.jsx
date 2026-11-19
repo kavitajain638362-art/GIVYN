@@ -5,7 +5,7 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import CameraCapture from './CameraCapture.jsx'
-import { photoAccept, photoSelectionError, validatePhoto } from './photoApi.js'
+import { photoAccept, photoMaxMiB, photoSelectionError, validatePhoto } from './photoApi.js'
 import floralArt from './assets/givyn-garden.webp'
 
 const hairOptions = [['Black','#241D20'], ['Dark brown','#3A2621'], ['Brown','#634438'], ['Light brown','#956C4D'],
@@ -92,7 +92,7 @@ function DropZone({ onChoose, onCamera, onDrop, chooseRef, cameraRef }) {
     >
       <UserRound size={67} strokeWidth={1.15} className="drop-icon" aria-hidden="true" />
       <h2 id="drop-title">Drop your portrait here</h2>
-      <p>JPG, JPEG, or PNG · up to 10 MB</p>
+      <p>JPG, JPEG, or PNG · up to {photoMaxMiB} MiB</p>
       <div className="photo-actions flex flex-wrap items-center justify-center">
         <button className="button button-primary" ref={chooseRef} type="button" onClick={onChoose}>Choose a photo</button>
         <button className="button button-outline" ref={cameraRef} type="button" onClick={onCamera}>

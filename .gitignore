@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 .env
+.env.local
+.env.*.local
+.vercel/
 backend/models/*.task
 backend/models/*.tflite
 node_modules/

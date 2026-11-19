@@ -55,7 +55,7 @@ class Store:
     def save_analysis(self, user, result):
         record = {key: value for key, value in result.items() if key not in {"palette", "drape_anchor"}}
         with self.connection() as db:
-            db.execute("INSERT OR IGNORE INTO users (id) VALUES (?)", (user,))
+            db.execute("INSERT INTO users (id) VALUES (?) ON CONFLICT (id) DO NOTHING", (user,))
             row = db.execute("INSERT INTO analyses (user_id, result) VALUES (?, ?) RETURNING id, created_at",
                              (user, json.dumps(record))).fetchone()
             db.execute("INSERT INTO palettes (analysis_id, colors) VALUES (?, ?)",
@@ -110,7 +110,7 @@ class Store:
 
     def save_color(self, user, hex_value, name):
         with self.connection() as db:
-            db.execute("INSERT OR IGNORE INTO users (id) VALUES (?)", (user,))
+            db.execute("INSERT INTO users (id) VALUES (?) ON CONFLICT (id) DO NOTHING", (user,))
             db.execute("""
                 INSERT INTO saved_colors (user_id, hex, name) VALUES (?, ?, ?)
                 ON CONFLICT(user_id, hex) DO UPDATE SET name = excluded.name

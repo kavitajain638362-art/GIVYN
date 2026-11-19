@@ -26,6 +26,28 @@ npm.cmd --prefix frontend run preview
 
 The preview serves the built app on port 4173 with the same Flask proxy. The React frontend lives in `frontend/src` and uses Tailwind with locally bundled fonts. The landing page uses Instrument Serif and DM Sans. Inner pages use Libre Baskerville for large headings and Cormorant Garamond for smaller headings, body text, and controls. The landing garden artwork is stored in `frontend/src/assets/givyn-garden.webp`.
 
+## Deploy on Vercel
+
+Import the repository root as one [Vercel Services project](https://vercel.com/docs/services). The `frontend` service serves the Vite site at `/` and accepts the browser's same-origin `/api/*` requests through a Node function. The Node function reads the Vercel-injected `GIVYN_API_URL` at request time and forwards those requests to `app`, the internal Flask service. Leave `GIVYN_API_URL` for Vercel to inject. Model training runs offline via `python -m training.train`.
+
+Run the Services project from the repository root without linking or deploying:
+
+```powershell
+# Use a Python 3.14 environment from the local setup below.
+. .\.venv\Scripts\Activate.ps1
+python backend/fetch_models.py
+npm.cmd --prefix frontend ci
+npx.cmd vercel@66.2.0 dev --local --listen 3000
+```
+
+Open `http://localhost:3000/` and `http://localhost:3000/api/health`. Refresh a frontend route such as `/history` to check deep linking. The separate Flask and Vite commands above still work with local SQLite and the Vite development proxy.
+
+From the Vercel project's **Storage** tab, create or connect a [Neon Marketplace database](https://vercel.com/marketplace/neon). The integration supplies the pooled `DATABASE_URL` to Flask on Vercel. Connect it to Production and enable Neon preview branches if you use Preview deployments. `GIVYN_DATABASE_URL` remains available as an explicit override and for local PostgreSQL testing. Flask creates the workspace tables on first use. If hosted storage is missing, workspace requests return `503`. Existing local SQLite history is separate from Neon.
+
+The cloud build downloads the two pinned MediaPipe assets, verifies their checksums, and bundles the trained JSON model. Linux builds use headless OpenCV. Vercel photo uploads are limited to 4 MiB per photo to leave room for multipart fields within the [Function payload limit](https://vercel.com/docs/functions/limitations#request-body-size). Local standalone Flask and Vite retain the 10 MiB limit.
+
+Before publishing, smoke-test a preview with the database configured. Check `/api/health`, upload a consented test portrait, reload the results, download its PDF and verify deletion in history. The bundled seasonal model is licensed for research use as described in [the training notes](training/README.md).
+
 ## Photo validation and analysis API
 
 GIVYN accepts a consented JPG, JPEG or PNG portrait and checks whether it is usable for personal color analysis. The Flask API uses Google’s [MediaPipe Face Landmarker](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker?tab=Python) to detect a face and mark the forehead and both cheeks. OpenCV and NumPy measure blur, exposure clipping and the difference in brightness between the two cheeks.
