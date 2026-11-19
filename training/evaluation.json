@@ -1,0 +1,482 @@
+{
+  "source_rows": 4920,
+  "excluded_unknown_identity": 2981,
+  "excluded_conflicting_identity_rows": 11,
+  "conflicting_identity_groups": 1,
+  "excluded_exact_duplicates": 0,
+  "excluded_missing_regional_measurements": 1,
+  "seed": 42,
+  "classes": [
+    "Autumn",
+    "Spring",
+    "Summer",
+    "Winter"
+  ],
+  "splits": {
+    "train": {
+      "rows": 1182,
+      "identities": 294,
+      "class_counts": {
+        "Autumn": 263,
+        "Summer": 314,
+        "Winter": 305,
+        "Spring": 300
+      }
+    },
+    "validation": {
+      "rows": 358,
+      "identities": 96,
+      "class_counts": {
+        "Autumn": 109,
+        "Summer": 89,
+        "Winter": 64,
+        "Spring": 96
+      }
+    },
+    "test": {
+      "rows": 387,
+      "identities": 99,
+      "class_counts": {
+        "Autumn": 96,
+        "Summer": 95,
+        "Winter": 79,
+        "Spring": 117
+      }
+    }
+  },
+  "models": {
+    "skin_hair": {
+      "candidates_validation": [
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.001,
+          "macro_f1": 0.4855304309175632
+        },
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.01,
+          "macro_f1": 0.47605574434726006
+        },
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.1,
+          "macro_f1": 0.48308105146460784
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.001,
+          "macro_f1": 0.4623280213155583
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.01,
+          "macro_f1": 0.46788810282981264
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.1,
+          "macro_f1": 0.476044326044326
+        },
+        {
+          "kind": "forest",
+          "degree": null,
+          "penalty": null,
+          "macro_f1": 0.4780108012148744
+        }
+      ],
+      "selected_kind": "softmax",
+      "selected_degree": 1,
+      "selected_penalty": 0.001,
+      "temperature": 1.084879754402392,
+      "validation": {
+        "rows": 358,
+        "accuracy": 0.49162011173184356,
+        "macro_f1": 0.4855304309175632,
+        "top_two_accuracy": 0.7513966480446927,
+        "log_loss": 1.1586094180928164,
+        "confusion_matrix": [
+          [
+            27,
+            22,
+            18,
+            42
+          ],
+          [
+            16,
+            38,
+            33,
+            9
+          ],
+          [
+            10,
+            12,
+            54,
+            13
+          ],
+          [
+            4,
+            0,
+            3,
+            57
+          ]
+        ],
+        "per_class_recall": {
+          "Autumn": 0.24770642201834864,
+          "Spring": 0.3958333333333333,
+          "Summer": 0.6067415730337079,
+          "Winter": 0.890625
+        },
+        "prediction_counts": {
+          "Winter": 121,
+          "Autumn": 57,
+          "Spring": 72,
+          "Summer": 108
+        }
+      },
+      "test": {
+        "rows": 387,
+        "accuracy": 0.4496124031007752,
+        "macro_f1": 0.4483668835799701,
+        "top_two_accuracy": 0.7622739018087855,
+        "log_loss": 1.208452878101665,
+        "confusion_matrix": [
+          [
+            37,
+            17,
+            11,
+            31
+          ],
+          [
+            11,
+            31,
+            60,
+            15
+          ],
+          [
+            10,
+            16,
+            49,
+            20
+          ],
+          [
+            7,
+            8,
+            7,
+            57
+          ]
+        ],
+        "per_class_recall": {
+          "Autumn": 0.3854166666666667,
+          "Spring": 0.26495726495726496,
+          "Summer": 0.5157894736842106,
+          "Winter": 0.7215189873417721
+        },
+        "prediction_counts": {
+          "Winter": 123,
+          "Autumn": 65,
+          "Spring": 72,
+          "Summer": 127
+        }
+      }
+    },
+    "regional": {
+      "candidates_validation": [
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.001,
+          "macro_f1": 0.4951977751741823
+        },
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.01,
+          "macro_f1": 0.4814228358338183
+        },
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.1,
+          "macro_f1": 0.4726527815870051
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.001,
+          "macro_f1": 0.45509731032643674
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.01,
+          "macro_f1": 0.48773906737711636
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.1,
+          "macro_f1": 0.505681295147987
+        },
+        {
+          "kind": "forest",
+          "degree": null,
+          "penalty": null,
+          "macro_f1": 0.48931919111855593
+        }
+      ],
+      "selected_kind": "softmax",
+      "selected_degree": 2,
+      "selected_penalty": 0.1,
+      "temperature": 1.076997312848936,
+      "validation": {
+        "rows": 358,
+        "accuracy": 0.505586592178771,
+        "macro_f1": 0.505681295147987,
+        "top_two_accuracy": 0.7877094972067039,
+        "log_loss": 1.1556885633994503,
+        "confusion_matrix": [
+          [
+            41,
+            21,
+            13,
+            34
+          ],
+          [
+            22,
+            35,
+            32,
+            7
+          ],
+          [
+            10,
+            12,
+            55,
+            12
+          ],
+          [
+            9,
+            2,
+            3,
+            50
+          ]
+        ],
+        "per_class_recall": {
+          "Autumn": 0.3761467889908257,
+          "Spring": 0.3645833333333333,
+          "Summer": 0.6179775280898876,
+          "Winter": 0.78125
+        },
+        "prediction_counts": {
+          "Winter": 103,
+          "Autumn": 82,
+          "Spring": 70,
+          "Summer": 103
+        }
+      },
+      "test": {
+        "rows": 387,
+        "accuracy": 0.4392764857881137,
+        "macro_f1": 0.43419644889597087,
+        "top_two_accuracy": 0.7338501291989664,
+        "log_loss": 1.2342482828849022,
+        "confusion_matrix": [
+          [
+            35,
+            23,
+            12,
+            26
+          ],
+          [
+            18,
+            24,
+            57,
+            18
+          ],
+          [
+            16,
+            10,
+            56,
+            13
+          ],
+          [
+            10,
+            10,
+            4,
+            55
+          ]
+        ],
+        "per_class_recall": {
+          "Autumn": 0.3645833333333333,
+          "Spring": 0.20512820512820512,
+          "Summer": 0.5894736842105263,
+          "Winter": 0.6962025316455697
+        },
+        "prediction_counts": {
+          "Winter": 112,
+          "Spring": 67,
+          "Autumn": 79,
+          "Summer": 129
+        }
+      }
+    },
+    "skin": {
+      "candidates_validation": [
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.001,
+          "macro_f1": 0.2852419247336228
+        },
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.01,
+          "macro_f1": 0.2910691882892284
+        },
+        {
+          "kind": "softmax",
+          "degree": 1,
+          "penalty": 0.1,
+          "macro_f1": 0.2788746151887255
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.001,
+          "macro_f1": 0.26741827990400263
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.01,
+          "macro_f1": 0.2670549707443681
+        },
+        {
+          "kind": "softmax",
+          "degree": 2,
+          "penalty": 0.1,
+          "macro_f1": 0.2756398862424458
+        },
+        {
+          "kind": "forest",
+          "degree": null,
+          "penalty": null,
+          "macro_f1": 0.2737466338880356
+        }
+      ],
+      "selected_kind": "softmax",
+      "selected_degree": 1,
+      "selected_penalty": 0.01,
+      "temperature": 1.6617492427485698,
+      "validation": {
+        "rows": 358,
+        "accuracy": 0.3268156424581006,
+        "macro_f1": 0.2910691882892284,
+        "top_two_accuracy": 0.5391061452513967,
+        "log_loss": 1.3733301074497042,
+        "confusion_matrix": [
+          [
+            56,
+            19,
+            23,
+            11
+          ],
+          [
+            39,
+            20,
+            28,
+            9
+          ],
+          [
+            19,
+            23,
+            35,
+            12
+          ],
+          [
+            15,
+            15,
+            28,
+            6
+          ]
+        ],
+        "per_class_recall": {
+          "Autumn": 0.5137614678899083,
+          "Spring": 0.20833333333333334,
+          "Summer": 0.39325842696629215,
+          "Winter": 0.09375
+        },
+        "prediction_counts": {
+          "Autumn": 129,
+          "Winter": 38,
+          "Summer": 114,
+          "Spring": 77
+        }
+      },
+      "test": {
+        "rows": 387,
+        "accuracy": 0.29198966408268734,
+        "macro_f1": 0.2842442100909843,
+        "top_two_accuracy": 0.5271317829457365,
+        "log_loss": 1.3836406078327617,
+        "confusion_matrix": [
+          [
+            37,
+            16,
+            33,
+            10
+          ],
+          [
+            37,
+            20,
+            45,
+            15
+          ],
+          [
+            23,
+            22,
+            40,
+            10
+          ],
+          [
+            15,
+            11,
+            37,
+            16
+          ]
+        ],
+        "per_class_recall": {
+          "Autumn": 0.3854166666666667,
+          "Spring": 0.17094017094017094,
+          "Summer": 0.42105263157894735,
+          "Winter": 0.20253164556962025
+        },
+        "prediction_counts": {
+          "Summer": 155,
+          "Winter": 51,
+          "Spring": 69,
+          "Autumn": 112
+        }
+      }
+    }
+  },
+  "test_majority_baseline": 0.3023255813953488,
+  "train_majority_baseline": {
+    "class": "Summer",
+    "test_accuracy": 0.2454780361757106
+  },
+  "csv_sha256": "e678969686cc4893930ddb79401f58707d99bfa6e6d22a2bb0105d7dc4b30c9f",
+  "limitations": [
+    "Evaluation is on supplied regional feature rows, not the GIVYN photo extraction pipeline.",
+    "Disjoint normalized supplied names reduce identity leakage; aliases and annotation errors may remain.",
+    "Unknown identities are excluded. Demographic, gender and skin-depth coverage is unverified.",
+    "Source skin and hair masks differ from GIVYN masks. Manual swatches also introduce domain shift.",
+    "Research-use experiment; this is not professional validation or a guarantee for any individual."
+  ]
+}

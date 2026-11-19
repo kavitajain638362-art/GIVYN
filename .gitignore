@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+backend/models/*.task
+backend/models/*.tflite
+node_modules/
+dist/
+instance/

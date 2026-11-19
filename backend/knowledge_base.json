@@ -1,0 +1,611 @@
+{
+  "version": "1.0",
+  "thresholds": {
+    "warmth_direction": 0.3,
+    "contrast_medium": 25,
+    "contrast_high": 48,
+    "compatible": 60,
+    "highly_compatible": 82
+  },
+  "weights": {
+    "warmth": 0.43,
+    "contrast": 0.28,
+    "saturation": 0.21,
+    "lightness": 0.04,
+    "brightness": 0.04
+  },
+  "undertones": [
+    "Warm",
+    "Cool",
+    "Neutral"
+  ],
+  "depth_labels": [
+    "Very light",
+    "Light",
+    "Light",
+    "Light-medium",
+    "Medium",
+    "Medium",
+    "Medium-deep",
+    "Deep",
+    "Deep",
+    "Very deep"
+  ],
+  "monk_hex": [
+    "#F6EDE4",
+    "#F3E7DB",
+    "#F7EAD0",
+    "#EADABA",
+    "#D7BD96",
+    "#A07E56",
+    "#825C43",
+    "#604134",
+    "#3A312A",
+    "#292420"
+  ],
+  "contrast_levels": [
+    "Low",
+    "Medium",
+    "High"
+  ],
+  "compatibility_levels": [
+    "Highly compatible",
+    "Compatible",
+    "Less harmonious"
+  ],
+  "rules": [
+    {
+      "season": "Spring",
+      "when": {
+        "undertone": "Warm",
+        "saturation": "clear"
+      },
+      "bonus": 0.07,
+      "explanation": "Warm undertone and clearer photo color favor Spring."
+    },
+    {
+      "season": "Summer",
+      "when": {
+        "undertone": "Cool",
+        "contrast": "Low"
+      },
+      "bonus": 0.07,
+      "explanation": "Cool undertone and gentle facial contrast favor Summer."
+    },
+    {
+      "season": "Autumn",
+      "when": {
+        "undertone": "Warm",
+        "saturation": "muted"
+      },
+      "bonus": 0.07,
+      "explanation": "Warm undertone and softer photo color favor Autumn."
+    },
+    {
+      "season": "Winter",
+      "when": {
+        "undertone": "Cool",
+        "contrast": "High"
+      },
+      "bonus": 0.07,
+      "explanation": "Cool undertone and stronger facial contrast favor Winter."
+    }
+  ],
+  "seasons": {
+    "Spring": {
+      "description": "Warm, bright colors with a clear, luminous quality.",
+      "target": {
+        "warmth": 0.75,
+        "contrast": 36,
+        "saturation": 46,
+        "lightness": 64,
+        "brightness": 77
+      },
+      "palette": {
+        "Complementary": [
+          {
+            "name": "Poppy",
+            "hex": "#E35D4B",
+            "temperature": "Warm",
+            "brightness": 89,
+            "saturation": 67
+          },
+          {
+            "name": "Apricot",
+            "hex": "#FFA86A",
+            "temperature": "Warm",
+            "brightness": 100,
+            "saturation": 58
+          },
+          {
+            "name": "Leaf Green",
+            "hex": "#76A34B",
+            "temperature": "Warm",
+            "brightness": 64,
+            "saturation": 54
+          },
+          {
+            "name": "Fresh Turquoise",
+            "hex": "#31A99F",
+            "temperature": "Cool",
+            "brightness": 66,
+            "saturation": 71
+          }
+        ],
+        "Neutrals": [
+          {
+            "name": "Warm Ivory",
+            "hex": "#F8E8CA",
+            "temperature": "Warm",
+            "brightness": 97,
+            "saturation": 19
+          },
+          {
+            "name": "Honey Beige",
+            "hex": "#C99861",
+            "temperature": "Warm",
+            "brightness": 79,
+            "saturation": 52
+          },
+          {
+            "name": "Light Olive",
+            "hex": "#A6A478",
+            "temperature": "Warm",
+            "brightness": 65,
+            "saturation": 28
+          }
+        ],
+        "Accents": [
+          {
+            "name": "Marigold",
+            "hex": "#F6B82F",
+            "temperature": "Warm",
+            "brightness": 96,
+            "saturation": 81
+          },
+          {
+            "name": "Coral Pink",
+            "hex": "#FF766A",
+            "temperature": "Warm",
+            "brightness": 100,
+            "saturation": 58
+          },
+          {
+            "name": "Bright Aqua",
+            "hex": "#3AC9C0",
+            "temperature": "Cool",
+            "brightness": 79,
+            "saturation": 71
+          }
+        ],
+        "Use with care": [
+          {
+            "name": "Steel Grey",
+            "hex": "#798794",
+            "temperature": "Cool",
+            "brightness": 58,
+            "saturation": 18
+          },
+          {
+            "name": "Icy Lilac",
+            "hex": "#E3DCF7",
+            "temperature": "Cool",
+            "brightness": 97,
+            "saturation": 11
+          },
+          {
+            "name": "Blue Black",
+            "hex": "#192231",
+            "temperature": "Cool",
+            "brightness": 19,
+            "saturation": 49
+          }
+        ]
+      }
+    },
+    "Summer": {
+      "description": "Cool, softened colors with gentle contrast.",
+      "target": {
+        "warmth": -0.62,
+        "contrast": 27,
+        "saturation": 23,
+        "lightness": 62,
+        "brightness": 72
+      },
+      "palette": {
+        "Complementary": [
+          {
+            "name": "Dusty Rose",
+            "hex": "#B8758C",
+            "temperature": "Cool",
+            "brightness": 72,
+            "saturation": 36
+          },
+          {
+            "name": "Periwinkle",
+            "hex": "#8F9FCB",
+            "temperature": "Cool",
+            "brightness": 80,
+            "saturation": 30
+          },
+          {
+            "name": "Soft Raspberry",
+            "hex": "#A95674",
+            "temperature": "Cool",
+            "brightness": 66,
+            "saturation": 49
+          },
+          {
+            "name": "Blue Sage",
+            "hex": "#83A5A4",
+            "temperature": "Cool",
+            "brightness": 65,
+            "saturation": 21
+          }
+        ],
+        "Neutrals": [
+          {
+            "name": "Soft White",
+            "hex": "#F1EDEC",
+            "temperature": "Neutral",
+            "brightness": 95,
+            "saturation": 2
+          },
+          {
+            "name": "Mauve Taupe",
+            "hex": "#A18C97",
+            "temperature": "Cool",
+            "brightness": 63,
+            "saturation": 13
+          },
+          {
+            "name": "Soft Navy",
+            "hex": "#4E5975",
+            "temperature": "Cool",
+            "brightness": 46,
+            "saturation": 33
+          }
+        ],
+        "Accents": [
+          {
+            "name": "Lavender",
+            "hex": "#B39DC4",
+            "temperature": "Cool",
+            "brightness": 77,
+            "saturation": 20
+          },
+          {
+            "name": "Watermelon",
+            "hex": "#CC7286",
+            "temperature": "Cool",
+            "brightness": 80,
+            "saturation": 44
+          },
+          {
+            "name": "Powder Blue",
+            "hex": "#9BBBD1",
+            "temperature": "Cool",
+            "brightness": 82,
+            "saturation": 26
+          }
+        ],
+        "Use with care": [
+          {
+            "name": "Acid Lime",
+            "hex": "#C5E52A",
+            "temperature": "Warm",
+            "brightness": 90,
+            "saturation": 82
+          },
+          {
+            "name": "Tangerine",
+            "hex": "#ED741F",
+            "temperature": "Warm",
+            "brightness": 93,
+            "saturation": 87
+          },
+          {
+            "name": "Jet Black",
+            "hex": "#15151C",
+            "temperature": "Cool",
+            "brightness": 11,
+            "saturation": 25
+          }
+        ]
+      }
+    },
+    "Autumn": {
+      "description": "Warm, earthy colors with richer depth and softened chroma.",
+      "target": {
+        "warmth": 0.75,
+        "contrast": 43,
+        "saturation": 28,
+        "lightness": 48,
+        "brightness": 61
+      },
+      "palette": {
+        "Complementary": [
+          {
+            "name": "Terracotta",
+            "hex": "#B65E48",
+            "temperature": "Warm",
+            "brightness": 71,
+            "saturation": 60
+          },
+          {
+            "name": "Moss",
+            "hex": "#727342",
+            "temperature": "Warm",
+            "brightness": 45,
+            "saturation": 43
+          },
+          {
+            "name": "Pumpkin",
+            "hex": "#C67435",
+            "temperature": "Warm",
+            "brightness": 78,
+            "saturation": 73
+          },
+          {
+            "name": "Petrol Teal",
+            "hex": "#2E6665",
+            "temperature": "Cool",
+            "brightness": 40,
+            "saturation": 55
+          }
+        ],
+        "Neutrals": [
+          {
+            "name": "Oat",
+            "hex": "#E8D7B4",
+            "temperature": "Warm",
+            "brightness": 91,
+            "saturation": 22
+          },
+          {
+            "name": "Camel",
+            "hex": "#BB8B56",
+            "temperature": "Warm",
+            "brightness": 73,
+            "saturation": 54
+          },
+          {
+            "name": "Umber",
+            "hex": "#614539",
+            "temperature": "Warm",
+            "brightness": 38,
+            "saturation": 41
+          }
+        ],
+        "Accents": [
+          {
+            "name": "Copper",
+            "hex": "#B6744D",
+            "temperature": "Warm",
+            "brightness": 71,
+            "saturation": 58
+          },
+          {
+            "name": "Warm Mulberry",
+            "hex": "#814951",
+            "temperature": "Cool",
+            "brightness": 51,
+            "saturation": 43
+          },
+          {
+            "name": "Ochre",
+            "hex": "#BA903A",
+            "temperature": "Warm",
+            "brightness": 73,
+            "saturation": 69
+          }
+        ],
+        "Use with care": [
+          {
+            "name": "Optic White",
+            "hex": "#FFFFFF",
+            "temperature": "Neutral",
+            "brightness": 100,
+            "saturation": 0
+          },
+          {
+            "name": "Electric Blue",
+            "hex": "#154DFA",
+            "temperature": "Cool",
+            "brightness": 98,
+            "saturation": 92
+          },
+          {
+            "name": "Icy Pink",
+            "hex": "#F4CDE6",
+            "temperature": "Cool",
+            "brightness": 96,
+            "saturation": 16
+          }
+        ]
+      }
+    },
+    "Winter": {
+      "description": "Cool, clear colors with more defined contrast.",
+      "target": {
+        "warmth": -0.75,
+        "contrast": 61,
+        "saturation": 38,
+        "lightness": 51,
+        "brightness": 65
+      },
+      "palette": {
+        "Complementary": [
+          {
+            "name": "Blue Red",
+            "hex": "#B90D3D",
+            "temperature": "Cool",
+            "brightness": 73,
+            "saturation": 93
+          },
+          {
+            "name": "Royal Blue",
+            "hex": "#3444AC",
+            "temperature": "Cool",
+            "brightness": 67,
+            "saturation": 70
+          },
+          {
+            "name": "Deep Plum",
+            "hex": "#602452",
+            "temperature": "Cool",
+            "brightness": 38,
+            "saturation": 63
+          },
+          {
+            "name": "Emerald",
+            "hex": "#00856B",
+            "temperature": "Cool",
+            "brightness": 52,
+            "saturation": 100
+          }
+        ],
+        "Neutrals": [
+          {
+            "name": "Optic White",
+            "hex": "#FFFFFF",
+            "temperature": "Neutral",
+            "brightness": 100,
+            "saturation": 0
+          },
+          {
+            "name": "Ink Black",
+            "hex": "#171822",
+            "temperature": "Cool",
+            "brightness": 13,
+            "saturation": 32
+          },
+          {
+            "name": "Cool Graphite",
+            "hex": "#4A4C5B",
+            "temperature": "Cool",
+            "brightness": 36,
+            "saturation": 19
+          }
+        ],
+        "Accents": [
+          {
+            "name": "Fuchsia",
+            "hex": "#CF2882",
+            "temperature": "Cool",
+            "brightness": 81,
+            "saturation": 81
+          },
+          {
+            "name": "Ice Blue",
+            "hex": "#BFD9FF",
+            "temperature": "Cool",
+            "brightness": 100,
+            "saturation": 25
+          },
+          {
+            "name": "Cranberry",
+            "hex": "#931B55",
+            "temperature": "Cool",
+            "brightness": 58,
+            "saturation": 82
+          }
+        ],
+        "Use with care": [
+          {
+            "name": "Honey Tan",
+            "hex": "#BD9166",
+            "temperature": "Warm",
+            "brightness": 74,
+            "saturation": 46
+          },
+          {
+            "name": "Muted Mustard",
+            "hex": "#BA9D49",
+            "temperature": "Warm",
+            "brightness": 73,
+            "saturation": 61
+          },
+          {
+            "name": "Soft Peach",
+            "hex": "#E5AA87",
+            "temperature": "Warm",
+            "brightness": 90,
+            "saturation": 41
+          }
+        ]
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "label": "Warm red and cool red",
+      "colors": [
+        {
+          "name": "Tomato red",
+          "hex": "#D94B35"
+        },
+        {
+          "name": "Blue red",
+          "hex": "#BC174C"
+        }
+      ]
+    },
+    {
+      "label": "Warm pink and cool pink",
+      "colors": [
+        {
+          "name": "Salmon pink",
+          "hex": "#F28D79"
+        },
+        {
+          "name": "Orchid pink",
+          "hex": "#CF6DA2"
+        }
+      ]
+    },
+    {
+      "label": "Ivory and pure white",
+      "colors": [
+        {
+          "name": "Ivory",
+          "hex": "#F7EBD1"
+        },
+        {
+          "name": "Pure white",
+          "hex": "#FFFFFF"
+        }
+      ]
+    },
+    {
+      "label": "Warm and cool drapes",
+      "colors": [
+        {
+          "name": "Warm coral",
+          "hex": "#E87963"
+        },
+        {
+          "name": "Cool berry",
+          "hex": "#AD456F"
+        }
+      ]
+    }
+  ],
+  "metals": [
+    {
+      "name": "Gold",
+      "hex": "#CE9F46",
+      "warmth": 0.85
+    },
+    {
+      "name": "Rose gold",
+      "hex": "#C58D81",
+      "warmth": 0.2
+    },
+    {
+      "name": "Silver",
+      "hex": "#CFD4DE",
+      "warmth": -0.8
+    }
+  ]
+}
