@@ -7,6 +7,8 @@ from threading import Lock
 import cv2
 import numpy as np
 
+from .vision_runtime import load_mediapipe
+
 
 class GarmentSegmenter:
     def __init__(self, model_path: Path):
@@ -17,7 +19,7 @@ class GarmentSegmenter:
     def segment(self, image):
         if not self.model_path.is_file():
             return None
-        import mediapipe as mp
+        mp = load_mediapipe()
 
         height, width = image.shape[:2]
         scale = min(1, 1024 / max(height, width))

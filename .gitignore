@@ -7,6 +7,7 @@ __pycache__/
 .vercel/
 backend/models/*.task
 backend/models/*.tflite
+backend/models/native-linux-x86_64/
 node_modules/
 dist/
 instance/

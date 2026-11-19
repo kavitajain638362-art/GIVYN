@@ -81,6 +81,12 @@ def create_app(config=None) -> Flask:
             return _error("model_missing", "Install the GIVYN Face Landmarker model.", 503)
         if store is None:
             return _error("storage_unconfigured", "Configure durable workspace storage for this deployment.", 503)
+        if hosted:
+            try:
+                landmarker.ensure_available()
+            except FaceLandmarkerUnavailable:
+                app.logger.exception("Hosted face detection is unavailable")
+                return _error("model_unavailable", "Photo analysis is temporarily unavailable.", 503)
         if isinstance(store, PostgresStore):
             with store.connection() as db:
                 db.execute("SELECT 1", ())
