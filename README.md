@@ -28,7 +28,7 @@ The preview serves the built app on port 4173 with the same Flask proxy. The Rea
 
 ## Deploy on Vercel
 
-Import the repository root as one [Vercel Services project](https://vercel.com/docs/services). The `frontend` service serves the Vite site at `/` and accepts the browser's same-origin `/api/*` requests through a Node function. The Node function reads the Vercel-injected `GIVYN_API_URL` at request time and forwards those requests to `app`, the internal Flask service. Leave `GIVYN_API_URL` for Vercel to inject. Model training runs offline via `python -m training.train`.
+Import the repository root as one [Vercel Services project](https://vercel.com/docs/services). The `frontend` service serves the Vite site at `/`. The Express `gateway` service accepts same-origin `/api/*` requests and forwards them to `app`, the internal Flask service. The gateway reads `GIVYN_API_URL` at request time from its Vercel service binding. Model training runs offline via `python -m training.train`.
 
 Run the Services project from the repository root without linking or deploying:
 
@@ -37,6 +37,7 @@ Run the Services project from the repository root without linking or deploying:
 . .\.venv\Scripts\Activate.ps1
 python backend/fetch_models.py
 npm.cmd --prefix frontend ci
+npm.cmd --prefix gateway ci
 npx.cmd vercel@66.2.0 dev --local --listen 3000
 ```
 

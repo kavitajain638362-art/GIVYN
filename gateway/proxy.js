@@ -10,7 +10,7 @@ function fail(res, status, code, message) {
 
 export default async function gateway(req, res) {
   const requestUrl = new URL(req.url, 'http://gateway.invalid')
-  if (!requestUrl.pathname.startsWith('/api/') || requestUrl.pathname === '/api/gateway') {
+  if (!requestUrl.pathname.startsWith('/api/')) {
     return fail(res, 404, 'not_found', 'This API route does not exist.')
   }
 

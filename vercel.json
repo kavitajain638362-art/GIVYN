@@ -6,12 +6,17 @@
       "framework": "vite",
       "buildCommand": "npm run build -- --mode vercel",
       "devCommand": "npm run dev -- --mode vercel",
-      "bindings": [
-        { "type": "service", "service": "app", "format": "url", "env": "GIVYN_API_URL" }
-      ],
       "routes": [
         { "handle": "filesystem" },
         { "src": "/(?!api(?:/|$)|assets(?:/|$)).*", "dest": "/index.html" }
+      ]
+    },
+    "gateway": {
+      "root": "gateway",
+      "framework": "express",
+      "entrypoint": "app.js",
+      "bindings": [
+        { "type": "service", "service": "app", "format": "url", "env": "GIVYN_API_URL" }
       ]
     },
     "app": {
@@ -22,13 +27,13 @@
       "functions": {
         "app.py": {
           "includeFiles": "backend/{knowledge_base.json,models/**}",
-          "excludeFiles": "{frontend,training,tests,instance,.venv}/**"
+          "excludeFiles": "{frontend,gateway,training,tests,instance,.venv}/**"
         }
       }
     }
   },
   "rewrites": [
-    { "source": "/api/:path*", "destination": { "service": "frontend", "path": "/api/gateway" } },
+    { "source": "/api/:path*", "destination": { "service": "gateway" } },
     { "source": "/(.*)", "destination": { "service": "frontend" } }
   ]
 }
