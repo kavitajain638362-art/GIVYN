@@ -18,7 +18,6 @@
       "root": ".",
       "framework": "flask",
       "entrypoint": "app:app",
-      "installCommand": "python backend/install_vercel.py",
       "buildCommand": "python backend/fetch_models.py",
       "functions": {
         "app.py": {

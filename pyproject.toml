@@ -1,0 +1,20 @@
+[project]
+name = "givyn"
+version = "0.1.0"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "Flask>=3.1,<4",
+    "mediapipe==0.10.33",
+    "numpy>=2,<3",
+    "opencv-python-headless>=4.12,<5",
+    "Pillow>=12.2,<13",
+    "scikit-image>=0.26,<1",
+    "scipy>=1.17,<2",
+    "reportlab>=4.4,<5",
+    "psycopg[binary]>=3.3,<4",
+]
+
+[tool.uv]
+# MediaPipe names the GUI wheel, but its vision tasks only need the cv2 API.
+# Let uv install a single headless wheel and Vercel optimize the managed bundle.
+exclude-dependencies = ["opencv-contrib-python"]
